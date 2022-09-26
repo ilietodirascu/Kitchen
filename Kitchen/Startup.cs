@@ -28,6 +28,7 @@ namespace Kitchen
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient();
+            services.AddLogging();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
