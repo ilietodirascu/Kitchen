@@ -27,6 +27,7 @@ namespace Kitchen.Controllers
             _logger.LogInformation("I am here");
             var client = _clientFactory.CreateClient();
             HttpResponseMessage response = await client.GetAsync("http://localhost:60500/Weatherforecast");
+            //HttpResponseMessage response = await client.GetAsync("http://host.docker.internal:60500/Weatherforecast");
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
