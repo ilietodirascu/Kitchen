@@ -1,0 +1,22 @@
+version: '3.4'
+services:
+  kitchen:
+    build: 
+      context: Kitchen/Kitchen/
+      dockerfile: Dockerfile
+    ports:
+      - "60000:80"
+    networks:
+      - default
+  dininghall:
+    build:
+      context: DiningHall/DiningHall/
+      dockerfile: Dockerfile
+    ports:
+      - "60500:80"
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
+    
