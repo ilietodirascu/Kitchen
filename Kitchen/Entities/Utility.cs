@@ -14,7 +14,6 @@ namespace Kitchen.Entities
         public static readonly Object Lock = new object();
         public static Random Random { get; set; } = new();
         public static List<Order> Orders { get; set; } = new();
-        public static List<Order> FinishedOrders { get; set; } = new();
         public static ConcurrentDictionary<int, List<Food>> PreparedFoods { get; set; } = new();
         public static ConcurrentQueue<Food> FoodsToPrepare{ get; set; } = new();
         public static HttpClient Client { get; set; } = new();
@@ -54,7 +53,6 @@ namespace Kitchen.Entities
                             var preparedFood = PreparedFoods.First(y => y.Key == i).Value.First();
                             RemoveFromDict(preparedFood);
                         });
-                        FinishedOrders.Add(o);
                         o.SendOrder();
                         Orders.Remove(o);
                         
@@ -92,9 +90,15 @@ namespace Kitchen.Entities
         }
         public static void AddOrder(Order order)
         {
-            Orders.Add(order);
-
-            order.Items.ToList().ForEach(y => FoodsToPrepare.Enqueue(Menu.FirstOrDefault(x => x.Id == y)));
+            lock (Lock)
+            {
+                Orders.Add(order);
+                Orders.OrderByDescending(x => x.Priority).First().Items.ToList().ForEach(y => FoodsToPrepare.Enqueue(Menu.FirstOrDefault(x => x.Id == y)));
+            }
+        }
+        public static Food GetFood(int id)
+        {
+            return Menu.First(x => x.Id == id);
         }
         public static string GetItems(Order order)
         {

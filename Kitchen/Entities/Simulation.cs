@@ -9,7 +9,7 @@ namespace Kitchen.Entities
 {
     public class Simulation
     {
-        public static List<Cook> Cooks = new() { new Cook { Name = "David Bowie", Proficiency = 4, Rank = 3 }, new Cook { Name = "Stevie Wonder", Proficiency = 4, Rank = 3 }, new Cook { Name = "Woodrow Wilson", Proficiency = 4, Rank = 3 } };
+        public static List<Cook> Cooks = new() { new Cook { Name = "David Bowie", Proficiency = 3, Rank = 3 }, new Cook { Name = "Stevie Wonder", Proficiency = 2, Rank = 3 }, new Cook { Name = "Woodrow Wilson", Proficiency = 4, Rank = 3 } };
 
         public void RunSimulation()
         {
@@ -29,11 +29,10 @@ namespace Kitchen.Entities
         {
             while (cook.Proficiency > 0)
             {
-                if (Utility.FoodsToPrepare.TryDequeue(out Food food))
+                if (Utility.FoodsToPrepare.TryDequeue(out Food food) && cook.Rank >= food.Complexity)
                 {
                     new Thread(() =>
                     {
-                        Cooks.First(x => x.Name.Equals(cook.Name));
                         cook.PrepareFood(food);
                     }).Start();
                 }
