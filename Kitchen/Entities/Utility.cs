@@ -93,7 +93,9 @@ namespace Kitchen.Entities
             lock (Lock)
             {
                 Orders.Add(order);
-                Orders.OrderByDescending(x => x.Priority).First().Items.ToList().ForEach(y => FoodsToPrepare.Enqueue(Menu.FirstOrDefault(x => x.Id == y)));
+                var highestPrioOrder = Orders.Where(y => !y.IsBeingCooked).OrderByDescending(x => x.Priority).First();
+                highestPrioOrder.Items.ToList().ForEach(y => FoodsToPrepare.Enqueue(Menu.FirstOrDefault(x => x.Id == y)));
+                highestPrioOrder.IsBeingCooked = true;
             }
         }
         public static Food GetFood(int id)
