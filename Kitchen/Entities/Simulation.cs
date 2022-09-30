@@ -9,7 +9,7 @@ namespace Kitchen.Entities
 {
     public class Simulation
     {
-        public static List<Cook> Cooks = new() { new Cook { Name = "David Bowie", Proficiency = 3, Rank = 3 }, new Cook { Name = "Stevie Wonder", Proficiency = 2, Rank = 3 }, new Cook { Name = "Woodrow Wilson", Proficiency = 4, Rank = 3 } };
+        public static List<Cook> Cooks = new() { new Cook { Name = "David Bowie", Proficiency = 4, Rank = 3 }, new Cook { Name = "Stevie Wonder", Proficiency = 3, Rank = 2 }, new Cook { Name = "Woodrow Wilson", Proficiency = 2, Rank = 2 }, new Cook { Name = "Jamie Jamison", Proficiency = 2, Rank = 1 } };
 
         public void RunSimulation()
         {
