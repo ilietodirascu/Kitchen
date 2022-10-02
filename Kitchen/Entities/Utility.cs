@@ -94,8 +94,8 @@ namespace Kitchen.Entities
             {
                 Orders.Add(order);
                 var highestPrioOrder = Orders.Where(y => !y.IsBeingCooked).OrderByDescending(x => x.Priority).First();
-                highestPrioOrder.Items.ToList().ForEach(y => FoodsToPrepare.Enqueue(Menu.FirstOrDefault(x => x.Id == y)));
                 highestPrioOrder.IsBeingCooked = true;
+                order.Items.ToList().ForEach(y => FoodsToPrepare.Enqueue(Menu.FirstOrDefault(x => x.Id == y)));
             }
         }
         public static Food GetFood(int id)
