@@ -11,7 +11,7 @@ namespace Kitchen.ExtensionMethods
     {
         public static void SendOrder(this Order order)
         {
-            Utility.Client.PostAsJsonAsync("http://localhost:60500/AddOrder", order);
+            Utility.Client.PostAsJsonAsync("http://host.docker.internal:60500/AddOrder", order);
         }
     }
 }
