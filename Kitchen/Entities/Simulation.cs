@@ -9,6 +9,7 @@ namespace Kitchen.Entities
 {
     public class Simulation
     {
+        public static List<CookingApparatus> CookingApparatuses = new() { new CookingApparatus("Oven"), new CookingApparatus("Oven"), new CookingApparatus("Stove") };
         public static List<Cook> Cooks = new() { new Cook { Name = "David Bowie", Proficiency = 4, Rank = 4 }, new Cook { Name = "Stevie Wonder", Proficiency = 3, Rank = 2 }, new Cook { Name = "Woodrow Wilson", Proficiency = 2, Rank = 2 }, new Cook { Name = "Jamie Jamison", Proficiency = 2, Rank = 1 } };
 
         //,new Cook { Name = "Stevie Wonder", Proficiency = 3, Rank = 2 }, new Cook { Name = "Woodrow Wilson", Proficiency = 2, Rank = 2 }, new Cook { Name = "Jamie Jamison", Proficiency = 2, Rank = 1 }  
@@ -21,14 +22,6 @@ namespace Kitchen.Entities
                     cook.DoWork();
                 }
             }
-            //while (true)
-            //{
-            //    if (!Utility.Orders.Any()) continue;
-            //    Cooks.ForEach(x =>
-            //    {
-            //        x.DoWork();
-            //    });
-            //}
         }
 
     }

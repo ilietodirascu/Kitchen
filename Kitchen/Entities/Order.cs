@@ -9,7 +9,7 @@ namespace Kitchen.Entities
     {
         public int Id { get; set; }
         public int[] Items { get; set; }
-        public int Priority { get; set; }
+        public float Priority { get; set; }
         public int MaxWait { get; set; }
         public bool IsBeingCooked { get; set; }
         public Table Table { get; set; }
