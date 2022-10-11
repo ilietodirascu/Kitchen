@@ -11,6 +11,6 @@ namespace Kitchen.Entities
         public string Name { get; set; }
         public int PreparationTime { get; set; }
         public int Complexity { get; set; }
-        public string CookingAppratus { get; set; }
+        public string CookingApparatus { get; set; }
     }
 }
