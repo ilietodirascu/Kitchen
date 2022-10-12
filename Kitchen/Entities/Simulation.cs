@@ -15,10 +15,10 @@ namespace Kitchen.Entities
         public static List<Cook> Cooks { get; set; }
         static Simulation()
         {
-            using StreamReader cr = new(@"../cooks.json");
+            using StreamReader cr = new(@"cooks.json");
             string cooks = cr.ReadToEnd();
             Cooks = JsonConvert.DeserializeObject<List<Cook>>(cooks);
-            using StreamReader ca = new(@"../cookingApparatuses.json");
+            using StreamReader ca = new(@"cookingApparatuses.json");
             string cookingApps = ca.ReadToEnd();
             CookingApparatuses = JsonConvert.DeserializeObject<List<CookingApparatus>>(cookingApps);
         }
