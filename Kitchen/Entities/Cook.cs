@@ -38,7 +38,7 @@ namespace Kitchen.Entities
                 var potentialLowFood = Utility.LowComplexityFoodsToPrepare.FirstOrDefault();
                 var potentialHighFood = Utility.HighComplexityFoodsToPrepare.FirstOrDefault();
                 if (potentialLowFood is null && potentialHighFood is null) return;
-                if (Rank > 2 && potentialHighFood != null && Rank >= potentialHighFood.Complexity)
+                if (Rank >= 2 && potentialHighFood != null && Rank >= potentialHighFood.Complexity)
                 {
                     cookingApparatus = Simulation.CookingApparatuses.FirstOrDefault(x => !x.IsFull && x.Name == potentialHighFood.CookingApparatus);
                     if (potentialHighFood.CookingApparatus != null
