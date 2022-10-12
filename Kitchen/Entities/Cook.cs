@@ -22,7 +22,7 @@ namespace Kitchen.Entities
             lock (_cookLock)
             {
                 Proficiency--;
-                Thread.Sleep(food.PreparationTime * 250);
+                Thread.Sleep(food.PreparationTime * 100);
                 if (Proficiency < _startingProficiency) Proficiency++;
                 if(cookingApparatus != null)cookingApparatus.IsFull = false;
                 Utility.AddFood(food);
