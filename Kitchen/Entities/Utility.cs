@@ -1,7 +1,9 @@
 ﻿using Kitchen.ExtensionMethods;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -18,22 +20,13 @@ namespace Kitchen.Entities
         public static ConcurrentQueue<Food> LowComplexityFoodsToPrepare { get; set; } = new();
         public static ConcurrentQueue<Food> HighComplexityFoodsToPrepare { get; set; } = new();
         public static HttpClient Client { get; set; } = new();
-        public static readonly Food[] Menu = new Food[]
-       {
-            new Food{Id = 1,Name = "Pizza", PreparationTime = 20, Complexity = 2, CookingApparatus = "Oven"},
-            new Food{Id = 2, Name = "Salad", PreparationTime = 10, Complexity = 1, CookingApparatus = null },
-            new Food{Id = 3, Name = "Zeama", PreparationTime = 7, Complexity = 1, CookingApparatus = "Stove" },
-            new Food{Id = 4, Name = "Scallop Sashimi with Meyer Lemon Confit", PreparationTime = 32, Complexity = 3, CookingApparatus = null },
-            new Food{Id = 5, Name = "Island Duck with Mulberry Mustard", PreparationTime = 35, Complexity = 3, CookingApparatus = "Oven" },
-            new Food{Id = 6, Name = "Waffles", PreparationTime = 10, Complexity = 1, CookingApparatus = "Stove" },
-            new Food{Id = 7, Name = "Aubergine", PreparationTime = 20, Complexity = 2, CookingApparatus = "Oven" },
-            new Food{Id = 8, Name = "Lasagna", PreparationTime = 30, Complexity = 2, CookingApparatus = "Oven" },
-            new Food{Id = 9, Name = "Burger", PreparationTime = 15, Complexity = 1, CookingApparatus = "Stove" },
-            new Food{Id = 10, Name = "Gyros", PreparationTime = 15, Complexity = 1, CookingApparatus = null },
-            new Food{Id = 11, Name = "Kebab", PreparationTime = 15, Complexity = 1, CookingApparatus = null },
-            new Food{Id = 12, Name = "Unagi Maki", PreparationTime = 20, Complexity = 2, CookingApparatus = null },
-            new Food{Id = 13, Name = "Tobacco Chicken", PreparationTime = 30, Complexity = 2, CookingApparatus = "Oven" },
-       };
+        public static Food[] Menu { get; set; }
+        static Utility()
+        {
+            using StreamReader u = new(@"../menu.json");
+            string foods = u.ReadToEnd();
+            Menu = JsonConvert.DeserializeObject<Food[]>(foods);
+        }
         public static int GetPreparationTime(int id)
         {
             return Menu.First(x => x.Id == id).PreparationTime;
@@ -98,7 +91,7 @@ namespace Kitchen.Entities
                 order.Items.ToList().ForEach(y =>
                 {
                     var food = Menu.FirstOrDefault(x => x.Id == y);
-                    if (food.Complexity > 2)
+                    if (food.Complexity >= 2)
                     {
                         HighComplexityFoodsToPrepare.Enqueue(food);
                     }
