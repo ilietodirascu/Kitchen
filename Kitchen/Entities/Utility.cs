@@ -23,7 +23,7 @@ namespace Kitchen.Entities
         public static Food[] Menu { get; set; }
         static Utility()
         {
-            using StreamReader u = new(@"../menu.json");
+            using StreamReader u = new(@"menu.json");
             string foods = u.ReadToEnd();
             Menu = JsonConvert.DeserializeObject<Food[]>(foods);
         }
@@ -87,7 +87,7 @@ namespace Kitchen.Entities
             Orders.Add(order);
             if (!LowComplexityFoodsToPrepare.Any() || !HighComplexityFoodsToPrepare.Any())
             {
-                order = Orders.OrderByDescending(x => x.Priority).First(); 
+                order = Orders.OrderByDescending(x => x.Priority).ThenBy(x => x.TimeOfCreation).First(); 
                 order.Items.ToList().ForEach(y =>
                 {
                     var food = Menu.FirstOrDefault(x => x.Id == y);
